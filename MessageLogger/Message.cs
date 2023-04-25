@@ -7,30 +7,34 @@ namespace MessageLogger
 {
     public class Message
     {
-        //public string Content;
-        //public DateTime CreatedAt;
-        //public List<string> AllMessages;
-        Dictionary<string, DateTime> MessageAndTime = new Dictionary<string, DateTime>();
+        public string Content;
+        public DateTime CreatedAt;
+        public List<string> AllMessages;
+        public string shortTime;
+        public DateTime Time;
 
-        public Message(string content, DateTime dateTime)
+        public Message(string content, DateTime time)
         {
-            MessageAndTime = new Dictionary<string, DateTime> { {content, dateTime } };
+            Content = content;
+            CreatedAt = DateTime.Now;
+            AllMessages = new List<string>();
+            shortTime = CreatedAt.ToShortTimeString();
+            Time = time;
         }
 
-        public void AddMessageToDictionary(string message, DateTime date)
+        public void AddMessageToList(string message, User user)
         {
-            Console.WriteLine("\nAdd a message (or 'quit' to exit): \n");
-            MessageAndTime.Add(message, date);
+            //AllMessages.Add(message);
+            DateTime messageTime = DateTime.Now;
+            Message newMessage = new(message, messageTime);
         }
 
-        public void DisplayAllMessages()
+        public void DisplayAllMessages(User user)
         {
-            foreach (KeyValuePair<string, DateTime> kvp in MessageAndTime)
+            string shortTime = CreatedAt.ToShortTimeString();
+            foreach (var message in AllMessages)
             {
-                var value = kvp.Value.ToString();
-                var key = kvp.Key.ToString();
-
-                Console.WriteLine($"{value}: {key}");
+                Console.WriteLine($"{user.Name} at {shortTime}: {message}");
             }
         }
     }
