@@ -11,22 +11,18 @@ namespace MessageLogger
         public DateTime CreatedAt;
         public List<string> AllMessages;
         public string shortTime;
-        public DateTime Time;
 
         public Message(string content, DateTime time)
         {
             Content = content;
-            CreatedAt = DateTime.Now;
             AllMessages = new List<string>();
             shortTime = CreatedAt.ToShortTimeString();
-            Time = time;
+            CreatedAt = time;
         }
 
-        public void AddMessageToList(string message, User user)
+        public void AddMessageToList(Message message)//this needs to add Message to List<Message>
         {
-            //AllMessages.Add(message);
-            DateTime messageTime = DateTime.Now;
-            Message newMessage = new(message, messageTime);
+
         }
 
         public void DisplayAllMessages(User user)
