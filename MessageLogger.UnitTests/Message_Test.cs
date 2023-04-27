@@ -10,37 +10,36 @@ namespace MessageLogger.UnitTests
             ShortTime.ToShortTimeString();
             List<string> list = new List<string>();
 
-            Assert.Equal(ShortTime.ToShortTimeString(), message1.shortTime);//time
-            Assert.Equal("this is a message.", message1.Content);//message
-            Assert.Equal(list, message1.AllMessages);//list
+            Assert.Equal(ShortTime.ToShortTimeString(), message1.CreatedAt.ToShortTimeString());
+            Assert.Equal("this is a message.", message1.Content);
+            Assert.Equal(list, message1.AllMessages);
 
         }
 
         [Fact]
-        public void Message_AddMessage_AddsGivenMessageToList_AllMessages()//needs rework
+        public void Message_AddMessageToListString_AddsGivenMessageToList_AllMessages()
         {
-            User user1 = new("John", "johndoe123");
             Message message1 = new("this is a message.", DateTime.Now);
-            message1.AddMessageToList("this is a second message", user1);
-            message1.AddMessageToList(message1.Content, user1);
+            message1.AddMessageToListString("this is a second message");
+            message1.AddMessageToListString(message1.Content);
 
-            Assert.Equal("this is a message.", message1.AllMessages[0]);
+            Assert.Equal("this is a message.", message1.AllMessages[1]);
             Assert.Equal("this is a second message", message1.AllMessages[0]);
         }
 
         [Fact]
-        public void Message_DisplayMessage_PrintsAllMessageInListWithCorrectTime()//needs rework
+        public void Message_DisplayAllMessages_PrintsAllMessageInList()
         {
             User user1 = new("John", "johndoe123");
-            Message message1 = new("this is a message.", DateTime.Now);//message 1 instantiated
-            message1.AddMessageToList(message1.Content, user1);//adding message 1
-            message1.AddMessageToList("this is a second message", user1);//adding message 2
-            DateTime shortTime = DateTime.Now;
-            shortTime.ToShortTimeString();
+            Message message1 = new("this is a message.", DateTime.Now);
+            var shortTime = DateTime.Now.ToShortTimeString();
 
-            //Assert.Equal("this is a message.", message1.AllMessages[0]);
-            //Assert.Equal("this is a second message", message1.AllMessages[1]);
-            Assert.Equal(shortTime.ToShortTimeString(), message1.shortTime);//double conversion of shortTime ToShortTime
+            message1.AddMessageToListString(message1.Content);
+            user1.AddMessage(message1);
+
+            Assert.Equal("John", user1.Name);
+            Assert.Equal(shortTime, message1.CreatedAt.ToShortTimeString());
+            Assert.Equal(message1.Content, message1.AllMessages[0]);
 
         }
     }

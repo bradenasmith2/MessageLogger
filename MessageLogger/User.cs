@@ -18,14 +18,20 @@ namespace MessageLogger
             isLoggedIn = false;
         }
 
-        public void LogIn(string userName)
+        public void LogIn(User user)
         {
             isLoggedIn = true;
+            var name = user.Name;
+            var username = user.UserName;
+            user = new(name, username);
         }
 
-        public void LogOut(string userName)
+        public void LogOut(User user)
         {
             isLoggedIn = false;
+            var name = "";
+            var username = "";
+            user = new(name, username);
         }
 
         public void AddMessage(Message message)

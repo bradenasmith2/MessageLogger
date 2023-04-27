@@ -18,19 +18,10 @@ namespace MessageLogger.UnitTests
         }
 
         [Fact]
-        public void User_InitialProfileCreation_AssignsNameAndUserNameValues()
-        {
-            User user = new("John", "johndoe123");//in InitialProfileCreation these values are C.RL().
-
-            Assert.Equal("John", user.Name);
-            Assert.Equal("johndoe123", user.UserName);
-        }
-
-        [Fact]
         public void User_LogIn_UsersIsLoggedInSet_True()
         {
             User user = new("John", "johndoe123");
-            user.LogIn("johndoe123");
+            user.LogIn(user);
 
             Assert.True(user.isLoggedIn);
         }
@@ -40,25 +31,25 @@ namespace MessageLogger.UnitTests
         {
             User user = new("John", "johndoe123");
 
-            user.LogIn("johndoe123");
+            user.LogIn(user);
             Assert.True(user.isLoggedIn);//Logging in user so IsLoggedIn set true, so this can test if IsLoggedIn updates to false.
 
-            user.LogOut("johndoe123");
+            user.LogOut(user);
             Assert.False(user.isLoggedIn);
         }
 
         [Fact]
-        public void User_AddUserToListOfUsers_UserGetsAddedToListOfUsersWithMessages()//needs rework
+        public void User_AddMessage_AddsMessageObjectToUserMessages()
         {
             User user = new("John", "johndoe123");
             Message message = new("this is a message.", DateTime.Now);
             Message message2 = new("this is a second message.", DateTime.Now);
 
-            user.AddUserToListOfUsers(user);
-            user.AddUserToListOfUsers(user);
+            user.AddMessage(message);
+            user.AddMessage(message2);
 
-            //Assert.Equal(message.Content, user.UserMessages[0].Content);
-            //Assert.Equal(message2.Content, user.UserMessages[1].Content);
+            Assert.Equal(message, user.UserMessages[0]);
+            Assert.Equal(message2, user.UserMessages[1]);
         }
     }
 }
