@@ -12,11 +12,11 @@ namespace MessageLogger
         public DateTime CreatedAt;
         public List<string> AllMessages;
 
-        public Message(string content, DateTime time)
+        public Message(string content)
         {
             Content = content;
             AllMessages = new List<string>();
-            CreatedAt = time;
+            CreatedAt = DateTime.Now;
         }
 
         public void AddMessageToListString(string message)
@@ -32,6 +32,8 @@ namespace MessageLogger
                 Console.WriteLine($"{user.Name} at {shortTime}: {message}"); //<<--- this "message" is unrelated to the passed in user.
             }
         }
+
+        //attempting to grab messages through the User. (unsuccessful)
 
         //public void DisplayAllMessages(User user)
         //{

@@ -1,12 +1,14 @@
 ﻿using MessageLogger;
 using System.Runtime.Intrinsics.X86;
 
+//initial profile creation
 Console.Write("Welcome to Message Logger!\nLet's create a user profile for you.\n\nWhat is your name? ");
 var name = Console.ReadLine();
 Console.Write("What would you like your username to be? ");
 var username = Console.ReadLine();
 
 var Users = new List<User>();
+//adding all Users to a list, then messageManger, so their values can be accessed.
 MessageManager messageManager = new(Users);
 messageManager.ListOfCommands();
 
@@ -15,7 +17,7 @@ string userMessage = "";
 while (userMessage != "quit")
 {
     User user = new(name, username);
-    Message message = new(userMessage, DateTime.Now);
+    Message message = new(userMessage);//<-- Time bug
     userMessage = "";
 
     while (userMessage != "log out")
@@ -36,9 +38,17 @@ while (userMessage != "quit")
             break;
         }
 
-        else if (userMessage.ToLower() == "list")
+        else if (userMessage.ToLower() == "list")//bugged.
         {
             messageManager.ListAllMessages();
+            continue;
+        }
+
+        else if (userMessage.ToLower() == "recent")//not implemented.
+        {
+            //int num = Convert.ToInt32(Console.ReadLine());
+            //messageManager.ListRecentMessages(user, num);
+            Console.WriteLine("This function has not been implemented yet.");
         }
 
         else if (userMessage.ToLower() == "commands")
@@ -57,16 +67,6 @@ while (userMessage != "quit")
                 Console.WriteLine("Most recent message removed.");
             }
 
-            //incomplete and untested 
-
-            //else if (userMessage.ToLower() == "recent")
-            //{
-            //    Console.Write("How many recent messages would you like to see? ");
-            //    var num = Console.ReadLine();
-            //    Convert.ToInt32(num);
-            //    messageManager.ListRecentMessages(user, num);
-            //}
-
             else
             {
                 Console.WriteLine("No messages to remove.");
@@ -76,11 +76,13 @@ while (userMessage != "quit")
         Console.WriteLine("Your previous logs:");
 
         message.AddMessageToListString(userMessage);
+        
+        //runs a check to verify no command words get added to list of messages.
         messageManager.RemoveCommandFromMessages(message);
 
         message.DisplayAllMessages(user);
 
-        user.AddMessage(message);//adds messages, other than 'quit' or 'log out' because of break;
+        user.AddMessage(message);
         
     }
 
@@ -129,9 +131,3 @@ foreach (User user in Users)
 {
     Console.WriteLine($"{user.Name} has entered {user.UserMessages.Count} messages.");
 }
-
-/* Log-In method:
- * Needs to reassign properties based on user.UserName 
- * use int i user.UserName[i]???
- * 
- */

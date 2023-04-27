@@ -42,8 +42,8 @@ namespace MessageLogger.UnitTests
         public void User_AddMessage_AddsMessageObjectToUserMessages()
         {
             User user = new("John", "johndoe123");
-            Message message = new("this is a message.", DateTime.Now);
-            Message message2 = new("this is a second message.", DateTime.Now);
+            Message message = new("this is a message.");
+            Message message2 = new("this is a second message.");
 
             user.AddMessage(message);
             user.AddMessage(message2);
@@ -53,5 +53,3 @@ namespace MessageLogger.UnitTests
         }
     }
 }
-
-//I haven't revisisted Tests in a while.

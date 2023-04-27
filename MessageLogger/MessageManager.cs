@@ -77,6 +77,11 @@ namespace MessageLogger
             {
                 message.AllMessages.Remove(lastMessage);
             }
+
+            else if (lastMessage == "recent")
+            {
+                message.AllMessages.Remove(lastMessage);
+            }
         }
     }
 }

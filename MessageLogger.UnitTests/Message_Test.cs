@@ -5,7 +5,7 @@ namespace MessageLogger.UnitTests
         [Fact]
         public void Message_Constructor_SetsValuesCorrectly()
         {
-            Message message1 = new("this is a message.", DateTime.Now);
+            Message message1 = new("this is a message.");
             var ShortTime = DateTime.Now;
             ShortTime.ToShortTimeString();
             List<string> list = new List<string>();
@@ -19,7 +19,7 @@ namespace MessageLogger.UnitTests
         [Fact]
         public void Message_AddMessageToListString_AddsGivenMessageToList_AllMessages()
         {
-            Message message1 = new("this is a message.", DateTime.Now);
+            Message message1 = new("this is a message.");
             message1.AddMessageToListString("this is a second message");
             message1.AddMessageToListString(message1.Content);
 
@@ -31,7 +31,7 @@ namespace MessageLogger.UnitTests
         public void Message_DisplayAllMessages_PrintsAllMessageInList()
         {
             User user1 = new("John", "johndoe123");
-            Message message1 = new("this is a message.", DateTime.Now);
+            Message message1 = new("this is a message.");
             var shortTime = DateTime.Now.ToShortTimeString();
 
             message1.AddMessageToListString(message1.Content);
